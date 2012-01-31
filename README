@@ -1,0 +1,101 @@
+simple proof of concept
+
+usage:
+
+  $('form').rparam()
+
+
+examples:
+
+  <input name="entity[attribute_1]" value="first" />
+  <input name="entity[attribute_2]" value="second" />
+  <input name="entity[attribute_3]" value="third" />
+
+  *becomes*
+
+  {
+    entity: {
+      attribute_1: 'first',
+      attribute_2: 'second',
+      attribute_3: 'third'
+    }
+  }
+
+  ----
+
+
+  <input name="entity[attribute_1][]" value="first" />
+  <input name="entity[attribute_1][]" value="second" />
+  <input name="entity[attribute_1][]" value="third" />
+
+  *becomes*
+
+  {
+    entity: {
+      attribute_1: [
+        'first',
+        'second',
+        'third'
+      ]
+    }
+  }
+
+  ----
+
+
+  <input name="entity[another_entity_attributes][][attribute_1]" value="1st first" />
+  <input name="entity[another_entity_attributes][][attribute_2]" value="1st second" />
+  <input name="entity[another_entity_attributes][][attribute_3]" value="1st third" />
+  <input name="entity[another_entity_attributes][][attribute_1]" value="2nd first" />
+  <input name="entity[another_entity_attributes][][attribute_2]" value="2nd second" />
+  <input name="entity[another_entity_attributes][][attribute_3]" value="2nd third" />
+  <input name="entity[another_entity_attributes][][attribute_1]" value="3rd first" />
+  <input name="entity[another_entity_attributes][][attribute_2]" value="3rd second" />
+  <input name="entity[another_entity_attributes][][attribute_3]" value="3rd third" />
+
+  *becomes*
+
+  {
+    entity: {
+      another_entity_attributes: [
+        {
+          attribute_1: '1st first',
+          attribute_2: '1st second',
+          attribute_3: '1st third'
+        },
+        {
+          attribute_1: '2nd first',
+          attribute_2: '2nd second',
+          attribute_3: '2nd third'
+        },
+        {
+          attribute_1: '3rd first',
+          attribute_2: '3rd second',
+          attribute_3: '3rd third'
+        }
+      ]
+    }
+  }
+
+  ----
+
+
+  <input name="entity[another_entity_attributes][][attribute_1]" value="1st first" />
+  <input name="entity[another_entity_attributes][][attribute_1]" value="2nd first" />
+  <input name="entity[another_entity_attributes][][attribute_2]" value="2nd second" />
+  
+  *becomes*
+
+  {
+    entity: {
+      another_entity_attributes: [
+        {
+          attribute_1: '1st first',
+          attribute_2: '2nd second',
+        },
+        {
+          attribute_1: '2nd first'
+        }
+      ]
+    }
+  }
